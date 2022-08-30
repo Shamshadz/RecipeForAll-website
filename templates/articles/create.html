@@ -2,20 +2,30 @@
 
 {% block content %}
 
+{% if not created %}
 <div class="container">
-    <form action="/articles/" method="POST">
-        {% crsf_token %}
-        <input type="text" name="title">
-        <textarea name="content" cols="30" rows="10"></textarea>
+    <form action="." method="POST">
+        {% csrf_token %}
+        <div style="margin-top: 10px;">
+            <input type="text" name="title" placeholder="title">
+        </div>
+        <div style="margin-top: 10px;">
+            <textarea name="content" cols="30" rows="10" placeholder="content"></textarea>           
+        </div>
+        <div style="margin-top: 10px;">
+            <button type="submit">create article</button>
+        </div>
     </form>
 </div>
 
-<ul>
-    {% for x in object_list %}
-        {% if x.title %}
-            <li><a href="/articles/{{ x.id }}/">{{ x.title }} - {{ x.content }}</a></li>
-        {% endif %}
-    {% endfor %}
-</ul>
+{% else %}
+
+<div class="container">
+    <p>Your article is created</p>
+    <ul>
+        <li><a href="/articles/{{ object.id }}/">{{ object.title }} - {{ object.content }}</a></li>
+    </ul>
+</div>
+{% endif %}
 
 {% endblock %}

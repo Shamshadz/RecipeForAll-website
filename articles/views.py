@@ -7,9 +7,15 @@ from django.shortcuts import render, redirect
 
 def article_create_view(request):
 
-    
+    context = {}
+    if request.method == 'POST':
+        title = request.POST.get("title")
+        content = request.POST.get('content')
+        article_object = Article.objects.create(title=title,content=content)
+        context['object'] = article_object
+        context['created'] = True
 
-    return render(request,'articles/create.html',context)
+    return render(request,'articles/create.html',context=context)
 
 def article_search_view(request):
     query_dict = request.GET   
