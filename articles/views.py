@@ -1,7 +1,5 @@
-from multiprocessing import context
 import random
 from django.http import HttpResponse,Http404
-from django.template.loader import render_to_string
 from articles.models import Article
 from django.shortcuts import render, redirect
 
